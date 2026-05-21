@@ -393,3 +393,33 @@ body.light .why-box { color: #334155; box-shadow: none; }
 body.light .custom-input { color: var(--text-main); background: rgba(255, 255, 255, 0.4); }
 body.light .history-item { color: var(--text-muted); }
 body.light .history-item .h-algo { color: var(--text-main); }
+
+/* ─── STEP MODE BUTTONS ─────────────────────────────────────────────────── */
+.step-btn {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border);
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 8px 24px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.step-btn:hover { 
+  background: rgba(255, 255, 255, 0.08); 
+  border-color: var(--border-lit); 
+  transform: translateY(-1px);
+}
+
+/* Light Theme Support for Step Buttons */
+body.light .step-btn {
+  background: rgba(0, 0, 0, 0.04);
+  color: var(--text-main);
+}
+
+body.light .step-btn:hover {
+  background: rgba(0, 0, 0, 0.08);
+}
