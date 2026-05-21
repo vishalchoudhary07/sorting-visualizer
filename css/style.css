@@ -462,3 +462,85 @@ body.light .step-info {
 body.light .step-hint {
   color: rgba(15, 23, 42, 0.6) !important;
 }
+
+
+body.light .ctrl-btn.danger {
+  color: var(--red) !important;
+  border-color: rgba(239, 68, 68, 0.4) !important;
+}
+body.light .ctrl-btn.danger:hover {
+  background: rgba(239, 68, 68, 0.1) !important;
+}
+
+
+body.light input[type="range"] {
+  background: rgba(0, 0, 0, 0.1) !important;
+}
+body.light input[type="range"]::-webkit-slider-thumb {
+  background: var(--blue) !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2) !important;
+}
+
+
+.toggle-slider {
+  background: rgba(255, 255, 255, 0.15) !important;
+}
+body.light .toggle-slider {
+  background: rgba(0, 0, 0, 0.15) !important;
+}
+
+
+.toggle-label {
+  font-family: var(--font-mono) !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  letter-spacing: 1px !important;
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+body.light .toggle-label {
+  color: rgba(15, 23, 42, 0.8) !important;
+}
+
+/* ─── ALGORITHM INFO FONT & THEME FIX ───────────────────────────────────── */
+.cx-label {
+  font-family: var(--font-mono) !important;
+  font-size: 10px !important;
+  font-weight: 700 !important;
+  color: var(--text-muted) !important;
+}
+
+.cx-val {
+  font-family: var(--font-mono) !important;
+  font-size: 10px !important;
+  font-weight: 700 !important;
+  color: #fff !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid var(--border) !important;
+  padding: 4px 10px !important;
+  border-radius: 4px !important;
+}
+
+
+.cx-val.good { border-color: var(--green) !important; color: var(--green) !important; background: rgba(16, 185, 129, 0.1) !important; }
+.cx-val.ok   { border-color: var(--amber) !important; color: var(--amber) !important; background: rgba(245, 158, 11, 0.1) !important; }
+.cx-val.bad  { border-color: var(--red) !important; color: var(--red) !important; background: rgba(239, 68, 68, 0.1) !important; }
+
+.use-case {
+  font-family: var(--font-mono) !important;
+  font-size: 11px !important;
+  color: var(--text-muted) !important;
+  line-height: 1.6 !important;
+  margin-top: 10px !important;
+  padding-top: 10px !important;
+  border-top: 1px solid var(--border) !important;
+}
+
+
+body.light .cx-label { color: var(--text-muted) !important; }
+body.light .use-case { color: var(--text-muted) !important; }
+body.light .cx-val { color: var(--text-main) !important; background: rgba(0, 0, 0, 0.05) !important; border-color: rgba(0, 0, 0, 0.1) !important; }
+
+
+body.light .cx-val.good { color: #059669 !important; border-color: rgba(5, 150, 105, 0.3) !important; } 
+body.light .cx-val.ok   { color: #d97706 !important; border-color: rgba(217, 119, 6, 0.3) !important; }
+body.light .cx-val.bad  { color: #dc2626 !important; border-color: rgba(220, 38, 38, 0.3) !important; }
