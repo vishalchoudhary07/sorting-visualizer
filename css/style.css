@@ -435,15 +435,31 @@ body.light .step-btn:hover {
   letter-spacing: 1px;
 }
 
+/* ─── STEP TEXT FONT FIX ────────────────────────────────────────────────── */
+.step-info { 
+  font-family: var(--font-mono); 
+  font-size: 12px; 
+  font-weight: 700; 
+  color: #fff; 
+  min-width: 140px; 
+  text-align: center; 
+  letter-spacing: 1px;
+}
+
 .step-hint { 
   font-family: var(--font-mono); 
-  font-size: 10px; 
+  font-size: 11px; /* Bumped up to match the buttons */
   font-weight: 700; 
-  color: var(--text-muted); 
-  letter-spacing: 0.5px;
+  color: rgba(255, 255, 255, 0.6); /* Brighter, more legible frosted white */
+  letter-spacing: 1px;
+  margin-left: 4px;
 }
 
 /* Light Theme Support for Step Text */
 body.light .step-info {
   color: var(--text-main);
+}
+
+body.light .step-hint {
+  color: rgba(15, 23, 42, 0.6); /* Clean, muted dark text for light mode */
 }
