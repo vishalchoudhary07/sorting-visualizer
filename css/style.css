@@ -423,3 +423,27 @@ body.light .step-btn {
 body.light .step-btn:hover {
   background: rgba(0, 0, 0, 0.08);
 }
+
+/* ─── STEP TEXT FONT FIX ────────────────────────────────────────────────── */
+.step-info { 
+  font-family: var(--font-mono); 
+  font-size: 12px; 
+  font-weight: 700; 
+  color: #fff; 
+  min-width: 140px; 
+  text-align: center; 
+  letter-spacing: 1px;
+}
+
+.step-hint { 
+  font-family: var(--font-mono); 
+  font-size: 10px; 
+  font-weight: 700; 
+  color: var(--text-muted); 
+  letter-spacing: 0.5px;
+}
+
+/* Light Theme Support for Step Text */
+body.light .step-info {
+  color: var(--text-main);
+}
