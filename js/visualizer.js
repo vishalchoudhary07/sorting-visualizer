@@ -60,6 +60,7 @@ function drawArray(ctx, canvas, arr, step, visStyle, showValues) {
 }
 
 // ─── BARS ─────────────────────────────────────────────────────────────────────
+// ─── BARS ─────────────────────────────────────────────────────────────────────
 function drawBars(ctx, W, H, arr, n, max, step, showValues) {
   const bw = W / n;
 
@@ -67,15 +68,38 @@ function drawBars(ctx, W, H, arr, n, max, step, showValues) {
     const bh = (v / max) * (H * 0.88);
     const x = i * bw;
     const y = H - bh;
+    
+    const baseColor = getBarColor(i, step);
+    
+    // Create a slick vertical gradient for each bar
+    const grad = ctx.createLinearGradient(x, y, x, H);
+    grad.addColorStop(0, baseColor);
+    
+    // Fade the bottom of the bar out slightly for a modern look
+    if (baseColor === COLOR.bar) {
+      grad.addColorStop(1, 'rgba(59,130,246, 0.1)');
+    } else {
+      grad.addColorStop(1, 'rgba(20,20,20, 0.8)'); 
+    }
 
-    ctx.fillStyle = getBarColor(i, step);
-    ctx.fillRect(x + 0.5, y, Math.max(1, bw - 0.5), bh);
+    ctx.fillStyle = grad;
 
-    if (showValues && bw > 18 && bh > 14) {
-      ctx.fillStyle = 'rgba(0,0,0,.75)';
-      ctx.font = `${Math.min(10, bw - 2)}px 'Space Mono', monospace`;
+    // Draw rounded top corners for the bars
+    const radius = Math.min(4, bw / 2);
+    ctx.beginPath();
+    ctx.moveTo(x + 0.5, H);
+    ctx.lineTo(x + 0.5, y + radius);
+    ctx.quadraticCurveTo(x + 0.5, y, x + 0.5 + radius, y);
+    ctx.lineTo(x + Math.max(1, bw - 0.5) - radius, y);
+    ctx.quadraticCurveTo(x + Math.max(1, bw - 0.5), y, x + Math.max(1, bw - 0.5), y + radius);
+    ctx.lineTo(x + Math.max(1, bw - 0.5), H);
+    ctx.fill();
+
+    if (showValues && bw > 24 && bh > 20) {
+      ctx.fillStyle = 'rgba(255,255,255,0.9)';
+      ctx.font = `bold ${Math.min(11, bw - 4)}px 'Space Mono', monospace`;
       ctx.textAlign = 'center';
-      ctx.fillText(v, x + bw / 2, y + 11);
+      ctx.fillText(v, x + bw / 2, y + 16);
     }
   });
 }
