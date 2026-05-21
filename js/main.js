@@ -1,8 +1,7 @@
 /**
  * main.js
  * Application controller — wires all modules together.
- * Handles: Normal mode, Step-by-Step mode, Race/Compare mode,
- *          theme toggle, data presets, canvas resize.
+ * Handles: Normal mode, Step-by-Step mode, theme toggle, data presets, canvas resize.
  */
 
 // ─── CANVAS ELEMENTS ──────────────────────────────────────────────────────────
@@ -10,10 +9,6 @@ const mainCanvas   = document.getElementById('mainCanvas');
 const mainCtx      = mainCanvas.getContext('2d');
 const graphCanvas  = document.getElementById('liveGraph');
 const graphCtx     = graphCanvas.getContext('2d');
-const cmpCanvasL   = document.getElementById('cmpCanvasL');
-const cmpCtxL      = cmpCanvasL.getContext('2d');
-const cmpCanvasR   = document.getElementById('cmpCanvasR');
-const cmpCtxR      = cmpCanvasR.getContext('2d');
 
 // ─── APP STATE ────────────────────────────────────────────────────────────────
 let array        = [];
@@ -22,7 +17,7 @@ let currentAlgo  = 'bubble';
 let currentVis   = 'bars';
 let currentPreset = 'random';
 let showValues   = false;
-let mode         = 'normal';   // 'normal' | 'step' | 'compare'
+let mode         = 'normal';   // 'normal' | 'step'
 
 // sort runtime state
 let sortSteps   = [];
@@ -42,12 +37,7 @@ function resizeCanvases() {
   mainCanvas.width  = ca.clientWidth;
   mainCanvas.height = ca.clientHeight;
 
-  const lp = cmpCanvasL.parentElement;
-  const rp = cmpCanvasR.parentElement;
-  if (lp) { cmpCanvasL.width = lp.clientWidth;  cmpCanvasL.height = lp.clientHeight; }
-  if (rp) { cmpCanvasR.width = rp.clientWidth;  cmpCanvasR.height = rp.clientHeight; }
-
-  graphCanvas.width  = graphCanvas.parentElement.clientWidth - 32;
+  graphCanvas.width  = graphCanvas.parentElement.clientWidth - 40;
   graphCanvas.height = 80;
 
   redraw();
@@ -189,54 +179,6 @@ function updateStepInfo() {
     `STEP ${stepIdx} / ${sortSteps.length}`;
 }
 
-// ─── RACE / COMPARE MODE ──────────────────────────────────────────────────────
-let cmpInterval = null;
-
-function startCompare() {
-  clearInterval(cmpInterval);
-
-  const algoL = document.getElementById('cmpLeft').value;
-  const algoR = document.getElementById('cmpRight').value;
-
-  document.getElementById('cmpLabelL').textContent = (ALGO_INFO[algoL]?.name || algoL).toUpperCase();
-  document.getElementById('cmpLabelR').textContent = (ALGO_INFO[algoR]?.name || algoR).toUpperCase();
-  document.getElementById('winnerL').classList.remove('show');
-  document.getElementById('winnerR').classList.remove('show');
-
-  const base = generateArray(currentPreset, N);
-  const stepsL = buildSteps(algoL, [...base]);
-  const stepsR = buildSteps(algoR, [...base]);
-  let idxL = 0, idxR = 0;
-  let doneL = false, doneR = false;
-
-  resizeCanvases();
-
-  const speed = parseInt(document.getElementById('cmpSpeed').value);
-  const delay = Math.max(4, Math.round(210 - speed * 2));
-
-  cmpInterval = setInterval(() => {
-    if (!doneL && idxL < stepsL.length) {
-      const s = stepsL[idxL];
-      drawArray(cmpCtxL, cmpCanvasL, s.arr, s, 'bars', false);
-      idxL++;
-      if (idxL >= stepsL.length) {
-        doneL = true;
-        if (!doneR) document.getElementById('winnerL').classList.add('show');
-      }
-    }
-    if (!doneR && idxR < stepsR.length) {
-      const s = stepsR[idxR];
-      drawArray(cmpCtxR, cmpCanvasR, s.arr, s, 'bars', false);
-      idxR++;
-      if (idxR >= stepsR.length) {
-        doneR = true;
-        if (!doneL) document.getElementById('winnerR').classList.add('show');
-      }
-    }
-    if (doneL && doneR) clearInterval(cmpInterval);
-  }, delay);
-}
-
 // ─── MODE SWITCHING ───────────────────────────────────────────────────────────
 function setMode(newMode) {
   mode = newMode;
@@ -244,38 +186,14 @@ function setMode(newMode) {
   clearInterval(timerInterval);
 
   // element references
-  const canvasArea    = document.getElementById('canvasArea');
-  const compareWrap   = document.getElementById('compareWrap');
-  const compareBar    = document.getElementById('compareBar');
   const stepControls  = document.getElementById('stepControls');
-  const sidePanel     = document.getElementById('sidePanel');
-  const algoTabs      = document.getElementById('algoTabs');
-  const playBtn       = document.getElementById('playBtn');
-  const pauseBtn      = document.getElementById('pauseBtn');
 
   // reset visibility
-  canvasArea.style.display   = 'block';
-  compareWrap.style.display  = 'none';
-  compareBar.style.display   = 'none';
   stepControls.style.display = 'none';
-  sidePanel.style.display    = 'flex';
-  algoTabs.style.display     = 'flex';
-  playBtn.style.display      = '';
-  pauseBtn.style.display     = '';
 
   document.querySelectorAll('.mode-tab').forEach(t =>
     t.classList.toggle('active', t.dataset.mode === newMode)
   );
-
-  if (newMode === 'compare') {
-    canvasArea.style.display   = 'none';
-    compareWrap.style.display  = 'grid';
-    compareBar.style.display   = 'flex';
-    sidePanel.style.display    = 'none';
-    algoTabs.style.display     = 'none';
-    playBtn.style.display      = 'none';
-    pauseBtn.style.display     = 'none';
-  }
 
   if (newMode === 'step') {
     stepControls.style.display = 'flex';
@@ -384,21 +302,6 @@ document.getElementById('applyCustom').addEventListener('click', () => {
   } else {
     alert('Please enter at least 2 valid positive numbers, separated by commas.');
   }
-});
-
-// Compare / Race mode buttons
-document.getElementById('cmpPlayBtn').addEventListener('click', startCompare);
-document.getElementById('cmpResetBtn').addEventListener('click', () => {
-  clearInterval(cmpInterval);
-  resizeCanvases();
-});
-document.getElementById('cmpLeft').addEventListener('change', e => {
-  document.getElementById('cmpLabelL').textContent =
-    (ALGO_INFO[e.target.value]?.name || e.target.value).toUpperCase();
-});
-document.getElementById('cmpRight').addEventListener('change', e => {
-  document.getElementById('cmpLabelR').textContent =
-    (ALGO_INFO[e.target.value]?.name || e.target.value).toUpperCase();
 });
 
 // Theme toggle

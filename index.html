@@ -10,7 +10,6 @@
 </head>
 <body>
 
-  <!-- NAV -->
   <nav>
     <div class="nav-logo">SORT<span>.</span>VIZ</div>
     <button class="theme-btn" id="themeBtn">◐ THEME</button>
@@ -18,7 +17,6 @@
 
   <div class="app" id="app">
 
-    <!-- TOP CONTROL BAR -->
     <div class="top-bar" id="topBar">
       <div class="algo-tabs" id="algoTabs">
         <button class="algo-tab active" data-algo="bubble">BUBBLE</button>
@@ -43,54 +41,13 @@
       <div class="mode-tabs" id="modeTabs">
         <button class="mode-tab active" data-mode="normal">NORMAL</button>
         <button class="mode-tab" data-mode="step">STEP</button>
-        <button class="mode-tab" data-mode="compare">RACE</button>
       </div>
     </div>
 
-    <!-- COMPARE ALGO SELECTORS (race mode) -->
-    <div class="top-bar compare-selects" id="compareBar" style="display:none">
-      <label>LEFT:</label>
-      <select id="cmpLeft">
-        <option value="bubble">Bubble</option><option value="selection">Selection</option>
-        <option value="insertion">Insertion</option><option value="merge" selected>Merge</option>
-        <option value="quick">Quick</option><option value="heap">Heap</option>
-        <option value="counting">Counting</option><option value="radix">Radix</option>
-      </select>
-      <label>RIGHT:</label>
-      <select id="cmpRight">
-        <option value="bubble">Bubble</option><option value="selection">Selection</option>
-        <option value="insertion">Insertion</option><option value="merge">Merge</option>
-        <option value="quick" selected>Quick</option><option value="heap">Heap</option>
-        <option value="counting">Counting</option><option value="radix">Radix</option>
-      </select>
-      <button class="ctrl-btn play" id="cmpPlayBtn">▶ RACE</button>
-      <button class="ctrl-btn danger" id="cmpResetBtn">↺ RESET</button>
-      <div class="slider-wrap">
-        <label>SPEED</label>
-        <input type="range" id="cmpSpeed" min="1" max="100" value="60" />
-      </div>
-    </div>
-
-    <!-- MAIN CANVAS -->
     <div class="canvas-area" id="canvasArea">
       <canvas id="mainCanvas"></canvas>
     </div>
 
-    <!-- RACE / COMPARE VIEW -->
-    <div class="compare-wrap" id="compareWrap" style="display:none">
-      <div class="compare-pane">
-        <span class="compare-label" id="cmpLabelL">MERGE SORT</span>
-        <div class="winner-badge" id="winnerL">🏆 WINNER</div>
-        <canvas class="compare-canvas" id="cmpCanvasL"></canvas>
-      </div>
-      <div class="compare-pane">
-        <span class="compare-label" id="cmpLabelR">QUICK SORT</span>
-        <div class="winner-badge" id="winnerR">🏆 WINNER</div>
-        <canvas class="compare-canvas" id="cmpCanvasR"></canvas>
-      </div>
-    </div>
-
-    <!-- STEP MODE CONTROLS -->
     <div class="step-controls" id="stepControls" style="display:none">
       <button class="step-btn" id="stepBack">← PREV</button>
       <span class="step-info" id="stepInfo">STEP 0 / 0</span>
@@ -98,10 +55,8 @@
       <span class="step-hint">or use ← → arrow keys</span>
     </div>
 
-    <!-- SIDE PANEL -->
     <div class="side-panel" id="sidePanel">
 
-      <!-- LIVE STATS -->
       <div class="panel-section">
         <div class="panel-label">Live Stats</div>
         <div class="stats-grid">
@@ -112,25 +67,21 @@
         </div>
       </div>
 
-      <!-- LIVE GRAPH -->
       <div class="panel-section">
         <div class="panel-label">Comparisons Over Time</div>
         <canvas id="liveGraph"></canvas>
       </div>
 
-      <!-- WHAT'S HAPPENING -->
       <div class="panel-section">
         <div class="panel-label">What's Happening</div>
         <div class="why-box" id="whyBox">Select an algorithm and press PLAY to begin.</div>
       </div>
 
-      <!-- ALGORITHM INFO -->
       <div class="panel-section">
         <div class="panel-label">Algorithm Info</div>
         <div class="complexity-grid" id="complexityGrid"></div>
       </div>
 
-      <!-- VISUAL STYLE -->
       <div class="panel-section">
         <div class="panel-label">Visual Style</div>
         <div class="vis-btns">
@@ -149,7 +100,6 @@
         </div>
       </div>
 
-      <!-- DATA INPUT -->
       <div class="panel-section">
         <div class="panel-label">Array Data</div>
         <div class="data-btns">
@@ -167,7 +117,6 @@
         <button class="ctrl-btn custom-apply" id="applyCustom">APPLY CUSTOM ARRAY</button>
       </div>
 
-      <!-- ALGORITHM HISTORY -->
       <div class="panel-section">
         <div class="panel-label">Algorithm History</div>
         <div class="history-list" id="historyList">
@@ -179,7 +128,6 @@
     </div>
   </div>
 
-  <!-- JS modules in dependency order -->
   <script src="js/algorithms/bubble.js"></script>
   <script src="js/algorithms/selection.js"></script>
   <script src="js/algorithms/insertion.js"></script>
