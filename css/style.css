@@ -332,3 +332,64 @@ input[type="range"]::-webkit-slider-thumb:hover { transform: scale(1.2); }
   transition: 0.2s;
 }
 .clear-btn:hover { background: rgba(239, 68, 68, 0.15); border-color: var(--red); box-shadow: 0 0 15px rgba(239, 68, 68, 0.3); }
+
+/* ─── LIGHT THEME (FROSTED GLASS) ────────────────────────────────────────── */
+body.light {
+  /* Override root variables for light mode */
+  --bg-color:   #f8fafc;
+  --surface:    rgba(255, 255, 255, 0.65);
+  --surface-hover: rgba(255, 255, 255, 0.9);
+  --border:     rgba(0, 0, 0, 0.1);
+  --border-lit: rgba(0, 0, 0, 0.25);
+  --text-main:  #0f172a;
+  --text-muted: #64748b;
+}
+
+/* Adjust the glowing background orbs */
+body.light::before { background: radial-gradient(circle, rgba(59, 130, 246, 0.2), transparent 70%); }
+body.light::after { background: radial-gradient(circle, rgba(139, 92, 246, 0.2), transparent 70%); }
+
+/* Remove harsh dark-mode text shadows and fix specific text colors */
+body.light .nav-logo,
+body.light .nav-logo span,
+body.light .stat-val {
+  color: var(--text-main);
+  text-shadow: none; 
+}
+
+body.light nav { background: rgba(255, 255, 255, 0.4); }
+
+/* Update Button & Tab text colors for Light Mode */
+body.light .algo-tab:hover,
+body.light .ctrl-btn:not(.play):not(.danger),
+body.light .vis-btn:hover,
+body.light .data-btn:hover,
+body.light .mode-tab:hover:not(.active),
+body.light .theme-btn:hover {
+  color: var(--text-main);
+  background: rgba(0, 0, 0, 0.04);
+}
+
+body.light .algo-tab.active,
+body.light .vis-btn.active,
+body.light .data-btn.active {
+  color: var(--blue);
+  box-shadow: none; /* Remove neon glow in light mode */
+}
+
+body.light .ctrl-btn.play {
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3); /* Softer shadow */
+}
+
+body.light .mode-tab.active {
+  color: var(--text-main);
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+}
+
+body.light .panel-label { color: var(--text-main); }
+body.light .why-box { color: #334155; box-shadow: none; }
+body.light .custom-input { color: var(--text-main); background: rgba(255, 255, 255, 0.4); }
+body.light .history-item { color: var(--text-muted); }
+body.light .history-item .h-algo { color: var(--text-main); }
